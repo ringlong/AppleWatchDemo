@@ -17,13 +17,25 @@
 @property (weak, nonatomic) IBOutlet WKInterfaceTable *table;
 @property (strong, nonatomic) ShoppingList *list;
 
+@property (strong, nonatomic) NSDictionary *cellTextAttributes;
+@property (strong, nonatomic) NSDictionary *deleteLineTextAttributes;
+
 @end
 
 @implementation RecipeShopInterfaceController
 
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
+    
+    self.cellTextAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize:16.],
+                                NSForegroundColorAttributeName: UIColor.whiteColor};
+    
+    self.deleteLineTextAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize:16.],
+                                      NSForegroundColorAttributeName: UIColor.lightGrayColor,
+                                      NSStrikethroughStyleAttributeName: @(NSUnderlinePatternSolid | NSUnderlineStyleSingle)};
+    
     self.list = ShoppingList.sharedList;
+    
     [self.table setRowTypes:self.list.rowTypes];
     [self.list.list enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
 
@@ -49,6 +61,28 @@
 - (void)didDeactivate {
     // This method is called when watch view controller is no longer visible
     [super didDeactivate];
+}
+
+- (void)table:(WKInterfaceTable *)table didSelectRowAtIndex:(NSInteger)rowIndex {
+    id controller = [table rowControllerAtIndex:rowIndex];
+    if ([controller isKindOfClass:[ItemRowController class]]) {
+        NSDictionary *dict = self.list.list[rowIndex];
+        Ingredient *ingredient = dict[@"type"];
+        NSString *text = ingredient.name.capitalizedString;
+        
+        ItemRowController *row = controller;
+        [row.textLabel setAttributedText:[[NSAttributedString alloc] initWithString:text attributes:self.deleteLineTextAttributes]];
+    }
+}
+
+- (IBAction)onClearAll {
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.table.numberOfRows)];
+    [self.table removeRowsAtIndexes:indexSet];
+}
+
+- (IBAction)onClearSection1 {
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 6)];
+    [self.table removeRowsAtIndexes:indexSet];
 }
 
 @end

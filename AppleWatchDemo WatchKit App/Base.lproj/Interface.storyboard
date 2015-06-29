@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7706" systemVersion="14E36b" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="3737"/>
     </dependencies>
     <scenes>
         <!--Interface Controller-->
@@ -264,6 +264,21 @@
                             </items>
                         </table>
                     </items>
+                    <menu key="menu" id="f8G-tx-2qP">
+                        <items>
+                            <menuItem title="Clear All" icon="trash" id="XGS-YO-hB7">
+                                <connections>
+                                    <action selector="onClearAll" destination="OZ5-cG-9io" id="6Xe-m7-ujI"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Clear Section 1" image="clear-purchased" id="0fb-OA-Vhs">
+                                <connections>
+                                    <action selector="onClearSection1" destination="OZ5-cG-9io" id="UQM-hQ-TPb"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Cancle" icon="decline" id="UCt-7E-T4T"/>
+                        </items>
+                    </menu>
                     <connections>
                         <outlet property="table" destination="3JM-Dk-Qkg" id="BEm-G9-i1i"/>
                     </connections>
